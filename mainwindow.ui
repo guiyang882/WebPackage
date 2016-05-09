@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_Capture">
        <attribute name="title">
@@ -30,124 +30,6 @@
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
-          <widget class="QWidget" name="widget_Control" native="true">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>50</height>
-            </size>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <widget class="QSplitter" name="splitter">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>Interface:</string>
-               </property>
-              </widget>
-              <widget class="QComboBox" name="comboBox_interface"/>
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>Filter:</string>
-               </property>
-              </widget>
-              <widget class="QLineEdit" name="lineEdit_filter"/>
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Protocal:</string>
-               </property>
-              </widget>
-              <widget class="QComboBox" name="comboBox_protocal">
-               <item>
-                <property name="text">
-                 <string>HTTP</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>IP</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>TCP</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>UDP</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>ICMP</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>ARP</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>RARP</string>
-                </property>
-               </item>
-              </widget>
-              <widget class="QPushButton" name="pushButton_start">
-               <property name="text">
-                <string>Start</string>
-               </property>
-              </widget>
-              <widget class="QPushButton" name="pushButton_finish">
-               <property name="text">
-                <string>Finish</string>
-               </property>
-              </widget>
-              <widget class="QPushButton" name="pushButton_save">
-               <property name="text">
-                <string>Save</string>
-               </property>
-              </widget>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QTableWidget" name="tableWidget_showPackages">
-           <column>
-            <property name="text">
-             <string>Time</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Source</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Destination</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Port</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Protocal</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Info</string>
-            </property>
-           </column>
-          </widget>
          </widget>
         </item>
        </layout>

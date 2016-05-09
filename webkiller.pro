@@ -13,8 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    Capture/captureform.cpp \
+    Pressure/pressureform.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    Capture/captureform.h \
+    Pressure/pressureform.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    Capture/captureform.ui \
+    Pressure/pressureform.ui
