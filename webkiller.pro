@@ -11,6 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = webkiller
 TEMPLATE = app
 
+INCLUDEPATH += /usr/local/include
+LIBS += -L/usr/local/lib -lpcap
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -24,3 +26,6 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     Capture/captureform.ui \
     Pressure/pressureform.ui
+
+DISTFILES += \
+    README.md
