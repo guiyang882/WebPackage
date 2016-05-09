@@ -1,24 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>691</width>
+    <height>456</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
-  <widget class="QWidget" name="centralWidget" />
-  <widget class="QStatusBar" name="statusBar" />
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_Capture">
+       <attribute name="title">
+        <string>Capture</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QSplitter" name="splitter_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <widget class="QWidget" name="widget_Control" native="true">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>50</height>
+            </size>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <widget class="QSplitter" name="splitter">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Interface:</string>
+               </property>
+              </widget>
+              <widget class="QComboBox" name="comboBox_interface"/>
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Filter:</string>
+               </property>
+              </widget>
+              <widget class="QLineEdit" name="lineEdit_filter"/>
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Protocal:</string>
+               </property>
+              </widget>
+              <widget class="QComboBox" name="comboBox_protocal">
+               <item>
+                <property name="text">
+                 <string>HTTP</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>IP</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>TCP</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>UDP</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>ICMP</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>ARP</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>RARP</string>
+                </property>
+               </item>
+              </widget>
+              <widget class="QPushButton" name="pushButton_start">
+               <property name="text">
+                <string>Start</string>
+               </property>
+              </widget>
+              <widget class="QPushButton" name="pushButton_finish">
+               <property name="text">
+                <string>Finish</string>
+               </property>
+              </widget>
+              <widget class="QPushButton" name="pushButton_save">
+               <property name="text">
+                <string>Save</string>
+               </property>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QTableWidget" name="tableWidget_showPackages">
+           <column>
+            <property name="text">
+             <string>Time</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Source</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Destination</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Port</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Protocal</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Info</string>
+            </property>
+           </column>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_Pressure">
+       <attribute name="title">
+        <string>Pressure</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>691</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuStart">
+    <property name="title">
+     <string>Start</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuCapture">
+    <property name="title">
+     <string>Capture</string>
+    </property>
+    <addaction name="actionStart"/>
+    <addaction name="actionRestart"/>
+    <addaction name="actionFinish"/>
+    <addaction name="actionSave"/>
+    <addaction name="separator"/>
+    <addaction name="actionLoad"/>
+   </widget>
+   <widget class="QMenu" name="menuPressure">
+    <property name="title">
+     <string>Pressure</string>
+    </property>
+   </widget>
+   <addaction name="menuStart"/>
+   <addaction name="menuCapture"/>
+   <addaction name="menuPressure"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionStart">
+   <property name="text">
+    <string>start</string>
+   </property>
+  </action>
+  <action name="actionRestart">
+   <property name="text">
+    <string>restart</string>
+   </property>
+  </action>
+  <action name="actionFinish">
+   <property name="text">
+    <string>finish</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>save</string>
+   </property>
+  </action>
+  <action name="actionLoad">
+   <property name="text">
+    <string>load</string>
+   </property>
+  </action>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
 </ui>
