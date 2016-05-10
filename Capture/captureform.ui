@@ -45,7 +45,11 @@
           <string>Filter:</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_filter"/>
+        <widget class="QLineEdit" name="lineEdit_filter">
+         <property name="text">
+          <string>port=80</string>
+         </property>
+        </widget>
         <widget class="QLabel" name="label_2">
          <property name="text">
           <string>Protocal:</string>

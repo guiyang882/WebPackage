@@ -28,11 +28,10 @@ void CaptureForm::on_comboBox_protocal_currentIndexChanged(int) {
 
 void CaptureForm::on_pushButton_start_clicked() {
     QString tmp = ui->lineEdit_filter->text();
-    p_curSniffDev = pcap_open_live(m_curSniffDev.c_str(),65535, 1, 0, errbuf);
+    p_curSniffDev = pcap_open_live(m_curSniffDev.c_str(),65535, 1, 1000, errbuf);
     if(p_curSniffDev == NULL) {
         cerr << "Couldn't open device " << m_curSniffDev << endl;
-        QMessageBox::question(this, tr("Valid Device"), tr("The Device can't open "),
-                QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+        QMessageBox::information(this, tr("Valid Device"), tr(errbuf), QMessageBox::Yes, QMessageBox::Yes);
     } else {
         struct pcap_pkthdr packet;
         const u_char * pktStr = pcap_next(p_curSniffDev, &packet);

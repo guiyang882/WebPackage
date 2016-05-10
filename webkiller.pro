@@ -18,11 +18,13 @@ LIBS += -L/usr/local/lib -lpcap
 SOURCES += main.cpp\
         mainwindow.cpp \
     Capture/captureform.cpp \
-    Pressure/pressureform.cpp
+    Pressure/pressureform.cpp \
+    Capture/utilscapture.cpp
 
 HEADERS  += mainwindow.h \
     Capture/captureform.h \
-    Pressure/pressureform.h
+    Pressure/pressureform.h \
+    Capture/utilscapture.h
 
 FORMS    += mainwindow.ui \
     Capture/captureform.ui \

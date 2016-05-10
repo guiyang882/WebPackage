@@ -7,8 +7,7 @@
 #include <QWidget>
 #include <QMessageBox>
 
-#include <pcap/pcap.h>
-#include <time.h>
+#include "utilscapture.h"
 
 using namespace std;
 
