@@ -19,3 +19,8 @@ sudo make install
 INCLUDEPATH += /usr/local/include
 LIBS += -L/usr/local/lib -lpcap
 ```
+
+## how to use pcap
+- Please see the document http://www.tcpdump.org/manpages/pcap.3pcap.html
+- english documents pdf http://www.tcpdump.org/papers/bpf-usenix93.pdf
+- Programming documents http://www.tcpdump.org/pcap.html

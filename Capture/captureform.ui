@@ -112,6 +112,11 @@
     <widget class="QTableWidget" name="tableWidget_showPackages">
      <column>
       <property name="text">
+       <string>ID</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
        <string>Time</string>
       </property>
      </column>

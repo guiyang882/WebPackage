@@ -25,6 +25,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_tabWidget_currentChanged(int index) {
+
     if(index == 0 && p_Capture == NULL) {
         p_CaptureLayout = new QGridLayout(ui->tab_Capture);
         p_Capture = new CaptureForm(ui->tab_Capture);
