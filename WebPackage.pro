@@ -9,11 +9,11 @@ QMAKE_CXXFLAGS += -std=c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = webkiller
+TARGET = webpackage
 TEMPLATE = app
 
-INCLUDEPATH += /usr/local/include
-LIBS += -L/usr/local/lib -lpcap
+INCLUDEPATH += /usr/local/Cellar/libpcap/1.7.4/include
+LIBS += -L/usr/local/Cellar/libpcap/1.7.4/lib -lpcap
 
 SOURCES += main.cpp\
         mainwindow.cpp \
