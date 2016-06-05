@@ -36,7 +36,7 @@
         </property>
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Interface:</string>
+          <string>Dev</string>
          </property>
         </widget>
         <widget class="QComboBox" name="comboBox_interface"/>
@@ -46,13 +46,19 @@
          </property>
         </widget>
         <widget class="QLineEdit" name="lineEdit_filter">
+         <property name="minimumSize">
+          <size>
+           <width>110</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="text">
-          <string>port=80</string>
+          <string>dst port 80</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Protocal:</string>
+          <string>Prot:</string>
          </property>
         </widget>
         <widget class="QComboBox" name="comboBox_protocal">

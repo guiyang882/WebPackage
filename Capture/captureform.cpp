@@ -27,21 +27,30 @@ void CaptureForm::on_comboBox_protocal_currentIndexChanged(int) {
 }
 
 void CaptureForm::on_pushButton_start_clicked() {
-    QString tmp = ui->lineEdit_filter->text();
-    p_curSniffDev = pcap_open_live(m_curSniffDev.c_str(),65535, 1, 1000, errbuf);
+    QString fileterStr = ui->lineEdit_filter->text();
+    p_curSniffDev = pcap_open_live(m_curSniffDev.c_str(),200, 0, 300, errbuf);
+    int status = -1;
     if(p_curSniffDev == NULL) {
         cerr << "Couldn't open device " << m_curSniffDev << endl;
         QMessageBox::information(this, tr("Valid Device"), tr(errbuf), QMessageBox::Yes, QMessageBox::Yes);
     } else {
-        struct pcap_pkthdr packet;
-        const u_char * pktStr = pcap_next(p_curSniffDev, &packet);
-        if(pktStr == NULL) {
-            cerr << "Did not capture a packet" << endl;
-        } else {
-            cout << "packed.len = " << packet.len << endl;
-            cout << "Number of bytes = " << packet.caplen << endl;
-            cout << "Recieved time = " << ctime((const time_t* )&packet.ts.tv_sec) << endl;
+        struct bpf_program filter;
+        if(fileterStr.isEmpty() == false) {
+            status = pcap_compile(p_curSniffDev, &filter, fileterStr.toStdString().c_str(), 1, 0);
+            if(status == -1) {
+                cerr << "pcap_compile: " << pcap_geterr(p_curSniffDev) << endl;
+            }
+            status = pcap_setfilter(p_curSniffDev, &filter);
+            if(status == -1) {
+                cerr << "pcap_setfilter: " << pcap_geterr(p_curSniffDev) << endl;
+            }
         }
+        status = pcap_datalink(p_curSniffDev);
+        if(status == -1) {
+            cerr << "pcap_datalink: " << pcap_geterr(p_curSniffDev) << endl;
+        }
+
+        pcap_loop(p_curSniffDev, -1, pcap_handle, NULL);
     }
 }
 
@@ -65,8 +74,10 @@ void CaptureForm::getGlobalInterfaceDevs() {
         cout << "Error in pcap_findalldevs " << errbuf << endl;
     } else {
         for(b = p_alldevs;b != NULL;b = b->next) {
-            if(b->name) {
+            if(b->name && b->addresses) {
                 m_str2interface[string(b->name)] = b;
+                if(b->description)
+                    cout << b->description << endl;
             }
         }
     }
