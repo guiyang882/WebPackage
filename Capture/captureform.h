@@ -15,6 +15,7 @@ namespace Ui {
 class CaptureForm;
 }
 
+class Worker;
 class CaptureForm : public QWidget
 {
     Q_OBJECT
@@ -27,8 +28,6 @@ private slots:
     void on_comboBox_interface_currentIndexChanged(int);
     void on_comboBox_protocal_currentIndexChanged(int);
     void on_pushButton_start_clicked();
-    void on_pushButton_finish_clicked();
-    void on_pushButton_save_clicked();
 
 private:
     Ui::CaptureForm *ui;
@@ -46,6 +45,9 @@ private:
     pcap_t * p_curSniffDev;
     string m_curSniffDev;
     string m_curProtocal;
+
+private:
+    Worker* p_worker;
 };
 
 #endif // CAPTUREFORM_H

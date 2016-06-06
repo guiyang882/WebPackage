@@ -103,16 +103,6 @@
           <string>Start</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton_finish">
-         <property name="text">
-          <string>Finish</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_save">
-         <property name="text">
-          <string>Save</string>
-         </property>
-        </widget>
        </widget>
       </item>
      </layout>

@@ -3,6 +3,31 @@
 string Proto[]={
     "Reserved","ICMP","IGMP","GGP","IP","ST","TCP"
 };
+
+Worker::Worker(CaptureForm* ui) {
+    m_curDev = NULL;
+    m_ui = ui;
+}
+
+Worker::~Worker() {
+    if(m_curDev) {
+        delete m_curDev;
+    }
+}
+
+void Worker::set_capture_device(pcap_t *device) {
+    m_curDev = device;
+}
+
+void Worker::run() {
+    pcap_loop(m_curDev, -1, pcap_handle, NULL);
+}
+
+void Worker::terminate_process() {
+    pcap_breakloop(m_curDev);
+    pcap_close(m_curDev);
+}
+
 //回调函数
 void pcap_handle(u_char* user,const struct pcap_pkthdr* header,const u_char* pkt_data) {
     ETHHEADER *eth_header=(ETHHEADER*)pkt_data;
@@ -38,7 +63,7 @@ void pcap_handle(u_char* user,const struct pcap_pkthdr* header,const u_char* pkt
     }
 }
 
-string get_IPAddress(bpf_u_int32 ipaddress) {
+string Worker::get_IPAddress(bpf_u_int32 ipaddress) {
     char ip[INET_ADDRSTRLEN];
     if(inet_ntop(AF_INET,&ipaddress,ip,sizeof(ip))==NULL)
         perror("inet_ntop error");
@@ -46,7 +71,7 @@ string get_IPAddress(bpf_u_int32 ipaddress) {
     return string(ip);
 }
 
-string get_NetMask(bpf_u_int32 ipmask) {
+string Worker::get_NetMask(bpf_u_int32 ipmask) {
     char mask[INET_ADDRSTRLEN];
     if(inet_ntop(AF_INET,&ipmask,mask,sizeof(mask))==NULL)
         perror("inet_ntop error");

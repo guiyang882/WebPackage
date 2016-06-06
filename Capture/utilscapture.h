@@ -10,6 +10,9 @@
 #include <errno.h>
 #include <string.h>
 
+#include <QThread>
+
+#include "captureform.h"
 
 using namespace std;
 
@@ -35,10 +38,27 @@ typedef struct {
     u_char destIP[4];
 }IPHEADER;
 
-
-
 void pcap_handle(u_char* user,const struct pcap_pkthdr* header,const u_char* pkt_data);
-string get_IPAddress(bpf_u_int32 ipaddress);
-string get_NetMask(bpf_u_int32 ipmask);
+
+class CaptureForm;
+class Worker: public QThread {
+public:
+    Worker(CaptureForm* ui);
+    ~Worker();
+public:
+    void set_capture_device(pcap_t* device);
+    void terminate_process();
+
+public:
+    static string get_IPAddress(bpf_u_int32 ipaddress);
+    static string get_NetMask(bpf_u_int32 ipmask);
+
+public:
+    void run();
+
+private:
+    pcap_t * m_curDev;
+    CaptureForm *m_ui;
+};
 
 #endif // UTILSCAPTURE_H

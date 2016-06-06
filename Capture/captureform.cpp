@@ -10,11 +10,17 @@ CaptureForm::CaptureForm(QWidget *parent) :
     m_curProtocal = "HTTP";
     ui->setupUi(this);
     getGlobalInterfaceDevs();
+    p_worker = NULL;
+    p_worker = new Worker(this);
 }
 
 CaptureForm::~CaptureForm() {
     if(p_alldevs)
         pcap_freealldevs(p_alldevs);
+    if(p_worker) {
+        p_worker->deleteLater();
+        delete p_worker;
+    }
     delete ui;
 }
 
@@ -27,39 +33,39 @@ void CaptureForm::on_comboBox_protocal_currentIndexChanged(int) {
 }
 
 void CaptureForm::on_pushButton_start_clicked() {
-    QString fileterStr = ui->lineEdit_filter->text();
-    p_curSniffDev = pcap_open_live(m_curSniffDev.c_str(),200, 0, 300, errbuf);
-    int status = -1;
-    if(p_curSniffDev == NULL) {
-        cerr << "Couldn't open device " << m_curSniffDev << endl;
-        QMessageBox::information(this, tr("Valid Device"), tr(errbuf), QMessageBox::Yes, QMessageBox::Yes);
-    } else {
-        struct bpf_program filter;
-        if(fileterStr.isEmpty() == false) {
-            status = pcap_compile(p_curSniffDev, &filter, fileterStr.toStdString().c_str(), 1, 0);
-            if(status == -1) {
-                cerr << "pcap_compile: " << pcap_geterr(p_curSniffDev) << endl;
+    if(ui->pushButton_start->text() == "Start") {
+        QString fileterStr = ui->lineEdit_filter->text();
+        p_curSniffDev = pcap_open_live(m_curSniffDev.c_str(),200, 0, 300, errbuf);
+        int status = -1;
+        if(p_curSniffDev == NULL) {
+            cerr << "Couldn't open device " << m_curSniffDev << endl;
+            QMessageBox::information(this, tr("Valid Device"), tr(errbuf), QMessageBox::Yes, QMessageBox::Yes);
+        } else {
+            struct bpf_program filter;
+            if(fileterStr.isEmpty() == false) {
+                status = pcap_compile(p_curSniffDev, &filter, fileterStr.toStdString().c_str(), 1, 0);
+                if(status == -1) {
+                    cerr << "pcap_compile: " << pcap_geterr(p_curSniffDev) << endl;
+                }
+                status = pcap_setfilter(p_curSniffDev, &filter);
+                if(status == -1) {
+                    cerr << "pcap_setfilter: " << pcap_geterr(p_curSniffDev) << endl;
+                }
             }
-            status = pcap_setfilter(p_curSniffDev, &filter);
+            status = pcap_datalink(p_curSniffDev);
             if(status == -1) {
-                cerr << "pcap_setfilter: " << pcap_geterr(p_curSniffDev) << endl;
+                cerr << "pcap_datalink: " << pcap_geterr(p_curSniffDev) << endl;
             }
-        }
-        status = pcap_datalink(p_curSniffDev);
-        if(status == -1) {
-            cerr << "pcap_datalink: " << pcap_geterr(p_curSniffDev) << endl;
         }
 
-        pcap_loop(p_curSniffDev, -1, pcap_handle, NULL);
+        p_worker->set_capture_device(p_curSniffDev);
+        p_worker->start();
+        ui->pushButton_start->setText(tr("Stop"));
+
+    } else if(ui->pushButton_start->text() == "Stop") {
+        p_worker->terminate_process();
+        p_worker->quit();
     }
-}
-
-void CaptureForm::on_pushButton_finish_clicked() {
-
-}
-
-void CaptureForm::on_pushButton_save_clicked() {
-
 }
 
 void CaptureForm::getGlobalInterfaceDevs() {
