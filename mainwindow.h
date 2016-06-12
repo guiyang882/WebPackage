@@ -24,6 +24,12 @@ public:
 private slots:
     void on_tabWidget_currentChanged(int index);
 
+    void on_actionAbout_Developor_triggered();
+
+    void on_actionAbout_Qt_triggered();
+
+    void on_actionExit_triggered();
+
 private:
     Ui::MainWindow *ui;
     CaptureForm *p_Capture;

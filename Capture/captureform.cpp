@@ -12,6 +12,12 @@ CaptureForm::CaptureForm(QWidget *parent) :
     ui->tableWidget_showPackages->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidget_showPackages->setSortingEnabled(true);
 
+    QPalette pal = ui->pushButton_start->palette();
+    pal.setColor(QPalette::Button,Qt::green);
+    ui->pushButton_start->setPalette(pal);
+    ui->pushButton_start->setAutoFillBackground(true);
+    ui->pushButton_start->setFlat(true);
+
     isCaputre = false;
     p_alldevs = NULL;
     p_curSniffDev = NULL;
@@ -43,7 +49,11 @@ void CaptureForm::setTableItem(QStringList data) {
 }
 
 void CaptureForm::on_comboBox_interface_currentIndexChanged(int) {
-    m_curSniffDev = ui->comboBox_interface->currentText().toStdString();
+    if(isCaputre == false) {
+        m_curSniffDev = ui->comboBox_interface->currentText().toStdString();
+    } else {
+        QMessageBox::warning(this,"Warning",tr("You Should Stop Capture first !"),QMessageBox::Ok,QMessageBox::Ok);
+    }
 }
 
 void CaptureForm::on_pushButton_start_clicked() {
@@ -78,12 +88,22 @@ void CaptureForm::on_pushButton_start_clicked() {
         p_worker->set_capture_device(p_curSniffDev);
         p_worker->start();
         ui->pushButton_start->setText(tr("Stop"));
+        QPalette pal = ui->pushButton_start->palette();
+        pal.setColor(QPalette::Button,Qt::red);
+        ui->pushButton_start->setPalette(pal);
+        ui->pushButton_start->setAutoFillBackground(true);
+        ui->pushButton_start->setFlat(true);
 
     } else if(ui->pushButton_start->text() == "Stop") {
         isCaputre = false;
         p_worker->terminate_process();
         p_worker->quit();
         ui->pushButton_start->setText(tr("Start"));
+        QPalette pal = ui->pushButton_start->palette();
+        pal.setColor(QPalette::Button,Qt::green);
+        ui->pushButton_start->setPalette(pal);
+        ui->pushButton_start->setAutoFillBackground(true);
+        ui->pushButton_start->setFlat(true);
     }
 }
 

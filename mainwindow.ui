@@ -11,12 +11,18 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>WebPacakgeAnay</string>
+   <string>WebPacakge</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="minimumSize">
+       <size>
+        <width>700</width>
+        <height>420</height>
+       </size>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -54,20 +60,27 @@
      <string>Capture</string>
     </property>
     <addaction name="actionStart"/>
-    <addaction name="actionRestart"/>
-    <addaction name="actionFinish"/>
-    <addaction name="actionSave"/>
+    <addaction name="actionStop"/>
+    <addaction name="actionClear"/>
     <addaction name="separator"/>
-    <addaction name="actionLoad"/>
+    <addaction name="actionSave"/>
    </widget>
    <widget class="QMenu" name="menuPressure">
     <property name="title">
      <string>Pressure</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionAbout_Developor"/>
+    <addaction name="actionAbout_Qt"/>
+   </widget>
    <addaction name="menuStart"/>
    <addaction name="menuCapture"/>
    <addaction name="menuPressure"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionExit">
@@ -80,14 +93,9 @@
     <string>start</string>
    </property>
   </action>
-  <action name="actionRestart">
+  <action name="actionStop">
    <property name="text">
-    <string>restart</string>
-   </property>
-  </action>
-  <action name="actionFinish">
-   <property name="text">
-    <string>finish</string>
+    <string>stop</string>
    </property>
   </action>
   <action name="actionSave">
@@ -95,9 +103,19 @@
     <string>save</string>
    </property>
   </action>
-  <action name="actionLoad">
+  <action name="actionClear">
    <property name="text">
-    <string>load</string>
+    <string>clear</string>
+   </property>
+  </action>
+  <action name="actionAbout_Developor">
+   <property name="text">
+    <string>About Developers</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt">
+   <property name="text">
+    <string>About Qt</string>
    </property>
   </action>
  </widget>

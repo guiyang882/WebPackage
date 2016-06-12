@@ -44,3 +44,17 @@ void MainWindow::on_tabWidget_currentChanged(int index) {
         p_Pressure->show();
     }
 }
+
+void MainWindow::on_actionAbout_Developor_triggered() {
+    QMessageBox::information(this, tr("Developers"),
+                             tr("Liu Guiyang --- 2015E8018761022\nWang Zhaonan -- 201518013727087\nMa Lingwei -- 2015E8013761089"),
+                             QMessageBox::Ok);
+}
+
+void MainWindow::on_actionAbout_Qt_triggered() {
+    QApplication::aboutQt();
+}
+
+void MainWindow::on_actionExit_triggered() {
+    this->close();
+}
