@@ -6,6 +6,8 @@
 
 #include <QWidget>
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QTextStream>
 
 #include "utilscapture.h"
 
@@ -24,10 +26,16 @@ public:
     explicit CaptureForm(QWidget *parent = 0);
     ~CaptureForm();
 
+public:
+    void setTableItem(QStringList data);
+
 private slots:
     void on_comboBox_interface_currentIndexChanged(int);
-    void on_comboBox_protocal_currentIndexChanged(int);
     void on_pushButton_start_clicked();
+
+    void on_pushButton_clear_clicked();
+
+    void on_pushButton_save_clicked();
 
 private:
     Ui::CaptureForm *ui;
@@ -45,6 +53,7 @@ private:
     pcap_t * p_curSniffDev;
     string m_curSniffDev;
     string m_curProtocal;
+    bool isCaputre;
 
 private:
     Worker* p_worker;

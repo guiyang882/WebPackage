@@ -39,6 +39,7 @@ typedef struct {
 }IPHEADER;
 
 void pcap_handle(u_char* user,const struct pcap_pkthdr* header,const u_char* pkt_data);
+void pcap_handle_show_ui(u_char* user,const struct pcap_pkthdr* header,const u_char* pkt_data);
 
 class CaptureForm;
 class Worker: public QThread {

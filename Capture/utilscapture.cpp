@@ -20,7 +20,7 @@ void Worker::set_capture_device(pcap_t *device) {
 }
 
 void Worker::run() {
-    pcap_loop(m_curDev, -1, pcap_handle, NULL);
+    pcap_loop(m_curDev, -1, pcap_handle_show_ui, (u_char*)m_ui);
 }
 
 void Worker::terminate_process() {
@@ -40,7 +40,7 @@ void pcap_handle(u_char* user,const struct pcap_pkthdr* header,const u_char* pkt
         //解析协议类型
         char strType[100];
         if(ip_header->proto>7)
-            strcpy(strType,"IP/UNKNWN");
+            strcpy(strType,"IP/UNKNOWN");
         else
             strcpy(strType,Proto[ip_header->proto].c_str());
 
@@ -60,6 +60,59 @@ void pcap_handle(u_char* user,const struct pcap_pkthdr* header,const u_char* pkt
                 printf("\n");
         }
         printf("\n\n");
+    }
+}
+
+//回调函数
+void pcap_handle_show_ui(u_char* user,const struct pcap_pkthdr* header,const u_char* pkt_data) {
+    CaptureForm* ui = (CaptureForm*)user;
+    ETHHEADER *eth_header=(ETHHEADER*)pkt_data;
+    QStringList data;
+
+    struct tm t;
+    char date_time[64];
+    strftime(date_time, sizeof(date_time), "%Y-%m-%d %H:%M:%S", localtime_r(&header->ts.tv_sec, &t));
+    string data_time(date_time);
+    string postfix = "." + to_string(header->ts.tv_usec);
+    data_time.append(postfix);
+    data.append(QString::fromStdString(data_time));
+    data.append(QString::fromStdString(to_string(header->len)));
+
+    //解析数据包IP头部
+    if(header->len>=14) {
+        IPHEADER *ip_header=(IPHEADER*)(pkt_data+14);
+
+        char mac_buffer[64];
+        sprintf(mac_buffer, "%02X-%02X-%02X-%02X-%02X-%02X",eth_header->SrcMac[0],eth_header->SrcMac[1],eth_header->SrcMac[2],eth_header->SrcMac[3],eth_header->SrcMac[4],eth_header->SrcMac[5]);
+        data.append(QString(mac_buffer));
+        sprintf(mac_buffer, "%02X-%02X-%02X-%02X-%02X-%02X",eth_header->DestMac[0],eth_header->DestMac[1],eth_header->DestMac[2],eth_header->DestMac[3],eth_header->DestMac[4],eth_header->DestMac[5]);
+        data.append(QString(mac_buffer));
+
+        char ip_buffer[64];
+        sprintf(ip_buffer, "%d.%d.%d.%d",ip_header->sourceIP[0],ip_header->sourceIP[1],ip_header->sourceIP[2],ip_header->sourceIP[3]);
+        data.append(QString(ip_buffer));
+        sprintf(ip_buffer, "%d.%d.%d.%d",ip_header->destIP[0],ip_header->destIP[1],ip_header->destIP[2],ip_header->destIP[3]);
+        data.append(QString(ip_buffer));
+
+        //解析协议类型
+        char strType[100];
+        if(ip_header->proto>7)
+            strcpy(strType,"IP/UNKNOWN");
+        else
+            strcpy(strType,Proto[ip_header->proto].c_str());
+        data.append(QString(strType));
+
+        //显示数据帧内容
+        string frame_info;
+        int i;
+        for(i=0; i<(int)header->len; ++i)  {
+            char a[6];
+            sprintf(a, "%02x ", pkt_data[i]);
+            frame_info.append(a);
+        }
+        data.append(QString::fromStdString(frame_info));
+
+        ui->setTableItem(data);
     }
 }
 
