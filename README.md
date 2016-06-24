@@ -20,6 +20,13 @@ INCLUDEPATH += /usr/local/include
 LIBS += -L/usr/local/lib -lpcap
 ```
 
+## protocal
+```bash
+src host 10.202.32.121
+dst port 80
+icmp[icmptype] == icmp-echoreply or icmp[icmptype] == icmp-echo
+```
+
 ## how to use pcap
 - Please see the document http://www.tcpdump.org/manpages/pcap.3pcap.html
 - english documents pdf http://www.tcpdump.org/papers/bpf-usenix93.pdf
